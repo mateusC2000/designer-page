@@ -35,27 +35,37 @@ export default function Process() {
   ];
 
   return (
-    <section id="etapas" className="section-padding bg-dark-50">
+    <section id="etapas" className="section-padding bg-white">
       <div className="container-max">
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <h2 className="heading-lg text-dark-900 mb-4">Nosso Processo</h2>
           <p className="text-muted max-w-xl mx-auto">
             Seguimos uma metodologia comprovada que garante excelência em cada projeto.
           </p>
         </div>
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Timeline Layout - Staggered alternating */}
+        <div className="space-y-16 max-w-3xl mx-auto">
           {steps.map((step, index) => (
             <div
               key={index}
-              className="bg-white p-8 rounded-xl border border-dark-200 hover:border-dark-400 transition-all duration-300 hover:shadow-lg group"
+              className={`flex gap-12 items-start ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+              style={{
+                animation: `fadeInUp 0.7s ease-out ${index * 0.15}s both`,
+              }}
             >
-              <div className="text-4xl font-bold text-dark-300 mb-4 group-hover:text-dark-900 transition-colors">
-                {step.number}
+              {/* Number Circle */}
+              <div className="flex-shrink-0">
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-dark-200 to-dark-300 flex items-center justify-center">
+                  <span className="text-4xl font-bold text-dark-900">{step.number}</span>
+                </div>
               </div>
-              <h3 className="heading-md text-dark-900 mb-3">{step.title}</h3>
-              <p className="text-dark-600">{step.description}</p>
+
+              {/* Content */}
+              <div className="flex-1 pt-2">
+                <h3 className="text-2xl font-bold text-dark-900 mb-3">{step.title}</h3>
+                <p className="text-dark-600 text-base leading-relaxed">{step.description}</p>
+              </div>
             </div>
           ))}
         </div>

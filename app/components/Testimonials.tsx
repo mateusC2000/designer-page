@@ -23,38 +23,43 @@ export default function Testimonials() {
   ];
 
   return (
-    <section id="avaliacao" className="section-padding bg-dark-50">
+    <section id="avaliacao" className="section-padding bg-white">
       <div className="container-max">
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <h2 className="heading-lg text-dark-900 mb-4">Depoimentos</h2>
           <p className="text-muted max-w-xl mx-auto">
             O que os nossos clientes dizem sobre o nosso trabalho.
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Testimonials - Minimalista Layout */}
+        <div className="space-y-12 max-w-3xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white p-8 rounded-xl border border-dark-200 hover:border-dark-400 transition-all duration-300"
+              style={{
+                animation: `fadeInUp 0.7s ease-out ${index * 0.2}s both`,
+              }}
+              className="group"
             >
               {/* Rating */}
-              <div className="flex gap-1 mb-4">
+              <div className="flex gap-1 mb-6">
                 {Array(testimonial.rating)
                   .fill(null)
                   .map((_, i) => (
-                    <span key={i} className="text-lg">
+                    <span key={i} className="text-2xl">
                       ⭐
                     </span>
                   ))}
               </div>
 
-              {/* Text */}
-              <p className="text-dark-600 mb-6 italic">&quot;{testimonial.text}&quot;</p>
+              {/* Quote */}
+              <p className="text-2xl font-light text-dark-900 mb-8 leading-relaxed italic">
+                &quot;{testimonial.text}&quot;
+              </p>
 
-              {/* Author */}
-              <div className="border-t border-dark-200 pt-6">
+              {/* Author - Below with divider */}
+              <div className="border-t border-dark-300 pt-6">
                 <p className="font-semibold text-dark-900">{testimonial.name}</p>
                 <p className="text-sm text-dark-500">{testimonial.role}</p>
               </div>
