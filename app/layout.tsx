@@ -8,19 +8,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Designer Page - Ultra Modern Landing',
+  title: 'Designer Studio - Design Moderno & Web Development',
   description:
-    'Uma landing page ultra moderna e responsiva, pronta para converter',
-  keywords: ['landing page', 'design moderno', 'convertador'],
-  authors: [{ name: 'Mateus Campos' }],
-  creator: 'Mateus Campos',
+    'Studio de design e desenvolvimento web. Criamos experiências digitais únicas, modernas e eficientes para sua marca.',
+  keywords: ['design', 'web development', 'studio', 'portugal', 'moderno'],
+  authors: [{ name: 'Designer Studio' }],
+  creator: 'Designer Studio',
   openGraph: {
     type: 'website',
     locale: 'pt_PT',
     url: 'https://example.com',
-    siteName: 'Designer Page',
-    title: 'Designer Page - Ultra Modern Landing',
-    description: 'Uma landing page ultra moderna e responsiva, pronta para converter',
+    siteName: 'Designer Studio',
+    title: 'Designer Studio - Design Moderno & Web Development',
+    description: 'Studio de design e desenvolvimento web. Criamos experiências digitais únicas, modernas e eficientes.',
   },
 };
 
