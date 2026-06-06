@@ -1,0 +1,32 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+* {
+  @apply select-none;
+}
+
+body {
+  @apply bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-cyan-500 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-cyan-400;
+}
