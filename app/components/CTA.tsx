@@ -1,9 +1,17 @@
 'use client';
 
+import { CTAIllustration } from '@/lib/illustrations';
+
 export default function CTA() {
   return (
-    <section id="contacto" className="section-padding bg-dark-900 text-white">
-      <div className="container-max text-center">
+    <section id="contacto" className="section-padding bg-dark-900 text-white relative overflow-hidden">
+      {/* Background Illustration */}
+      <div className="absolute inset-0 opacity-20">
+        <CTAIllustration />
+      </div>
+
+      {/* Content */}
+      <div className="container-max text-center relative z-10">
         <h2 className="heading-lg text-white mb-4">
           Pronto para começar?
         </h2>

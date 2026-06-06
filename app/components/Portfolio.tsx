@@ -1,5 +1,7 @@
 'use client';
 
+import { PortfolioPlaceholder } from '@/lib/illustrations';
+
 export default function Portfolio() {
   const projects = [
     {
@@ -61,8 +63,9 @@ export default function Portfolio() {
               className="group cursor-pointer"
             >
               {/* Project Image */}
-              <div className={`${project.image} h-72 rounded-lg flex items-center justify-center relative overflow-hidden mb-6 transition-transform duration-300 group-hover:scale-105`}>
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300 flex items-center justify-center">
+              <div className="h-72 rounded-lg overflow-hidden mb-6 transition-transform duration-300 group-hover:scale-105 relative">
+                <PortfolioPlaceholder index={index} />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center rounded-lg">
                   <button className="text-white font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-6 py-2 bg-white/20 backdrop-blur-md rounded-lg">
                     Ver Projeto
                   </button>

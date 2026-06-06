@@ -1,6 +1,6 @@
 'use client';
 
-import { Zap } from 'lucide-react';
+import { HeroIllustration } from '@/lib/illustrations';
 
 export default function Hero() {
   return (
@@ -26,15 +26,10 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right: Visual Element */}
-          <div className="animate-fade-in relative">
-            <div className="bg-gradient-to-br from-dark-100 to-dark-200 rounded-2xl aspect-square flex items-center justify-center overflow-hidden">
-              <div className="text-center">
-                <div className="w-32 h-32 mx-auto mb-4 bg-dark-300 rounded-full flex items-center justify-center">
-                  <Zap size={64} className="text-dark-900" />
-                </div>
-                <p className="text-dark-600 font-medium">Design Inovador</p>
-              </div>
+          {/* Right: Illustration */}
+          <div className="animate-fade-in">
+            <div className="rounded-2xl aspect-square overflow-hidden shadow-lg">
+              <HeroIllustration />
             </div>
           </div>
         </div>

@@ -1,21 +1,16 @@
 'use client';
 
-import { Rocket } from 'lucide-react';
+import { AboutIllustration } from '@/lib/illustrations';
 
 export default function About() {
   return (
     <section id="sobre" className="section-padding bg-white">
       <div className="container-max">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Visual */}
+          {/* Left: Illustration */}
           <div className="animate-fade-in">
-            <div className="bg-gradient-to-br from-dark-100 to-dark-300 rounded-2xl h-96 flex items-center justify-center">
-              <div className="text-center">
-                <div className="mb-4">
-                  <Rocket size={80} className="text-dark-900" />
-                </div>
-                <p className="text-dark-600 font-medium">Equipa Criativa</p>
-              </div>
+            <div className="rounded-2xl aspect-square overflow-hidden shadow-lg">
+              <AboutIllustration />
             </div>
           </div>
 
