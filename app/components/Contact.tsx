@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Send, Loader, Phone, MessageSquare, Target, Check, Clock, Mail } from 'lucide-react';
+import { Send, Loader, MessageSquare, Target, Check, Clock, Mail } from 'lucide-react';
 
 interface FormData {
   name: string;
