@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Send, Loader } from 'lucide-react';
+import { Send, Loader, Phone, MessageSquare, Target, Check, Clock, Mail } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -17,6 +17,7 @@ type Step = 'name' | 'company' | 'email' | 'phone' | 'project' | 'budget' | 'tim
 
 export default function Contact() {
   const [step, setStep] = useState<Step>('name');
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     name: '',
     company: '',
@@ -32,19 +33,27 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
 
   const questions: Record<Step, string> = {
-    name: 'Como você se chama? 👤',
-    company: `Perfeito, ${formData.name}! Qual é o nome da sua empresa? 🏢`,
-    email: 'Qual é seu melhor email para contato? 📧',
-    phone: 'Qual é seu telefone? (opcional) 📱',
-    project: 'Descreva sua ideia de projeto. O que você precisa? 💡',
-    budget: 'Qual é seu orçamento estimado? (opcional - pode ser um range) 💰',
-    timeline: 'Qual é seu timeline esperado para iniciar? (opcional) ⏱️',
+    name: 'Como você se chama?',
+    company: `Perfeito, ${formData.name}! Qual é o nome da sua empresa?`,
+    email: 'Qual é seu melhor email para contato?',
+    phone: 'Qual é seu telefone?',
+    project: 'Descreva sua ideia de projeto. O que você precisa?',
+    budget: 'Qual é seu orçamento estimado?',
+    timeline: 'Qual é seu timeline esperado para iniciar?',
     complete: 'Pronto!',
   };
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  };
+
+  const transitionToStep = (newStep: Step) => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setStep(newStep);
+      setIsTransitioning(false);
+    }, 500); // Transição um pouco mais longa para dar tempo de animar
   };
 
   const handleNext = async () => {
@@ -56,7 +65,7 @@ export default function Contact() {
         return;
       }
       setFormData({ ...formData, name: input.trim() });
-      setStep('company');
+      transitionToStep('company');
       setInput('');
     } else if (step === 'company') {
       if (!input.trim()) {
@@ -64,7 +73,7 @@ export default function Contact() {
         return;
       }
       setFormData({ ...formData, company: input.trim() });
-      setStep('email');
+      transitionToStep('email');
       setInput('');
     } else if (step === 'email') {
       if (!input.trim()) {
@@ -76,13 +85,13 @@ export default function Contact() {
         return;
       }
       setFormData({ ...formData, email: input.trim() });
-      setStep('phone');
+      transitionToStep('phone');
       setInput('');
     } else if (step === 'phone') {
       if (input.trim()) {
         setFormData({ ...formData, phone: input.trim() });
       }
-      setStep('project');
+      transitionToStep('project');
       setInput('');
     } else if (step === 'project') {
       if (!input.trim()) {
@@ -90,13 +99,13 @@ export default function Contact() {
         return;
       }
       setFormData({ ...formData, projectDescription: input.trim() });
-      setStep('budget');
+      transitionToStep('budget');
       setInput('');
     } else if (step === 'budget') {
       if (input.trim()) {
         setFormData({ ...formData, budget: input.trim() });
       }
-      setStep('timeline');
+      transitionToStep('timeline');
       setInput('');
     } else if (step === 'timeline') {
       if (input.trim()) {
@@ -156,7 +165,7 @@ export default function Contact() {
           {/* Header */}
           <div className="text-center mb-12 animate-fadeIn">
             <h2 className="heading-xl mb-4 text-dark-900">
-              Vamos conversar sobre seu <span className="text-cyan-500">projeto?</span>
+              Vamos conversar sobre seu <span className="text-dark-500">projeto?</span>
             </h2>
             <p className="text-lg text-dark-500">
               Responda algumas perguntas e receba um orçamento personalizado
@@ -177,50 +186,53 @@ export default function Contact() {
                   </div>
                   <div className="w-full h-2 bg-dark-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-500"
+                      className="h-full bg-gradient-to-r from-dark-400 to-dark-900 transition-all duration-500"
                       style={{ width: `${progress[step]}%` }}
                     />
                   </div>
                 </div>
 
-                {/* Chat Message */}
-                <div className="min-h-24 flex flex-col justify-center">
-                  <div className="bg-dark-50 rounded-xl p-6 border border-dark-200">
-                    <p className="text-lg font-light text-dark-900 leading-relaxed">
-                      {questions[step]}
-                    </p>
+                {/* Área com transição lenta para Chat e Input */}
+                <div className={`space-y-6 transition-all duration-700 ease-in-out ${isTransitioning ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
+                  {/* Chat Message */}
+                  <div className="min-h-24 flex flex-col justify-center">
+                    <div className="bg-dark-50 rounded-xl p-6 border border-dark-200">
+                      <p className="text-lg font-light text-dark-900 leading-relaxed">
+                        {questions[step]}
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                {/* Input */}
-                <div className="space-y-4">
-                  {step === 'phone' || step === 'budget' || step === 'timeline' ? (
-                    <p className="text-sm text-dark-500 italic">Campo opcional</p>
-                  ) : null}
+                  {/* Input */}
+                  <div className="space-y-4">
+                    {step === 'phone' || step === 'budget' || step === 'timeline' ? (
+                      <p className="text-sm text-dark-500 italic">Campo opcional</p>
+                    ) : null}
 
-                  {step === 'project' ? (
-                    <textarea
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder="Digite aqui sua resposta..."
-                      className="w-full h-32 px-4 py-3 rounded-xl border border-dark-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition resize-none text-dark-900 placeholder-dark-400"
-                      disabled={loading}
-                    />
-                  ) : (
-                    <input
-                      type={step === 'email' ? 'email' : step === 'phone' ? 'tel' : 'text'}
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder="Digite aqui sua resposta..."
-                      className="w-full px-4 py-3 rounded-xl border border-dark-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition text-dark-900 placeholder-dark-400"
-                      disabled={loading}
-                      autoFocus
-                    />
-                  )}
+                    {step === 'project' ? (
+                      <textarea
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        placeholder="Digite aqui sua resposta..."
+                        className="w-full h-32 px-4 py-3 rounded-xl border border-dark-200 focus:border-dark-900 focus:ring-2 focus:ring-dark-900/20 outline-none transition resize-none text-dark-900 placeholder-dark-400"
+                        disabled={loading}
+                      />
+                    ) : (
+                      <input
+                        type={step === 'email' ? 'email' : step === 'phone' ? 'tel' : 'text'}
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        placeholder="Digite aqui sua resposta..."
+                        className="w-full px-4 py-3 rounded-xl border border-dark-200 focus:border-dark-900 focus:ring-2 focus:ring-dark-900/20 outline-none transition text-dark-900 placeholder-dark-400"
+                        disabled={loading}
+                        autoFocus
+                      />
+                    )}
 
-                  {error && <p className="text-sm text-red-500 font-medium">{error}</p>}
+                    {error && <p className="text-sm text-red-500 font-medium">{error}</p>}
+                  </div>
                 </div>
 
                 {/* Buttons */}
@@ -239,20 +251,20 @@ export default function Contact() {
                         ];
                         const currentIndex = stepOrder.indexOf(step);
                         if (currentIndex > 0) {
-                          setStep(stepOrder[currentIndex - 1]);
+                          transitionToStep(stepOrder[currentIndex - 1]);
                           setInput('');
                           setError('');
                         }
                       }}
                       className="button-secondary flex-1"
-                      disabled={loading}
+                      disabled={loading || isTransitioning}
                     >
                       Voltar
                     </button>
                   )}
                   <button
                     onClick={handleNext}
-                    disabled={loading}
+                    disabled={loading || isTransitioning}
                     className="button-primary flex-1 inline-flex items-center justify-center gap-2"
                   >
                     {loading ? (
@@ -271,14 +283,14 @@ export default function Contact() {
 
                 {/* Helper Text */}
                 <p className="text-xs text-dark-500 text-center">
-                  💡 Dica: Seja o mais detalhado possível para um orçamento mais preciso
+                  Dica: Seja o mais detalhado possível para um orçamento mais preciso
                 </p>
               </div>
             ) : (
               /* Success State */
               <div className="text-center py-12 animate-scaleIn space-y-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full">
-                  <span className="text-3xl">✨</span>
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-dark-900 rounded-full">
+                  <Check className="w-8 h-8 text-white" />
                 </div>
 
                 <div>
@@ -288,12 +300,14 @@ export default function Contact() {
                   <p className="text-lg text-dark-500 mb-4">
                     Seu contato foi recebido com sucesso
                   </p>
-                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-left">
-                    <p className="text-sm text-dark-700 mb-2">
-                      <strong>📧 Confirmação enviada para:</strong> {formData.email}
+                  <div className="bg-dark-50 border border-dark-200 rounded-xl p-4 text-left">
+                    <p className="text-sm text-dark-700 mb-2 flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-dark-900" />
+                      <span><strong>Confirmação enviada para:</strong> {formData.email}</span>
                     </p>
-                    <p className="text-sm text-dark-700">
-                      <strong>⏱️ Tempo de resposta:</strong> 24-48 horas
+                    <p className="text-sm text-dark-700 flex items-center gap-2">
+                      <Clock className="w-4 h-4 text-dark-900" />
+                      <span><strong>Tempo de resposta:</strong> 24-48 horas</span>
                     </p>
                   </div>
                 </div>
@@ -331,17 +345,17 @@ export default function Contact() {
           <div className="grid md:grid-cols-3 gap-6 mt-12">
             {[
               {
-                icon: '📞',
+                icon: <Clock className="w-8 h-8 text-dark-900" />,
                 title: 'Suporte Rápido',
                 desc: 'Respondemos em até 48 horas',
               },
               {
-                icon: '💬',
+                icon: <MessageSquare className="w-8 h-8 text-dark-900" />,
                 title: 'Conversa Realista',
                 desc: 'Entendemos suas necessidades',
               },
               {
-                icon: '🎯',
+                icon: <Target className="w-8 h-8 text-dark-900" />,
                 title: 'Orçamento Preciso',
                 desc: 'Com base nas suas informações',
               },
@@ -351,7 +365,9 @@ export default function Contact() {
                 className="text-center p-6 rounded-xl bg-white border border-dark-200 hover:border-dark-300 transition animate-fadeInUp"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
-                <span className="text-3xl mb-2 block">{item.icon}</span>
+                <div className="flex justify-center mb-4">
+                  {item.icon}
+                </div>
                 <h4 className="font-semibold text-dark-900 mb-1">{item.title}</h4>
                 <p className="text-sm text-dark-500">{item.desc}</p>
               </div>
