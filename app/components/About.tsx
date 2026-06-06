@@ -1,5 +1,7 @@
 'use client';
 
+import { Rocket } from 'lucide-react';
+
 export default function About() {
   return (
     <section id="sobre" className="section-padding bg-white">
@@ -9,7 +11,9 @@ export default function About() {
           <div className="animate-fade-in">
             <div className="bg-gradient-to-br from-dark-100 to-dark-300 rounded-2xl h-96 flex items-center justify-center">
               <div className="text-center">
-                <div className="text-6xl mb-4">🚀</div>
+                <div className="mb-4">
+                  <Rocket size={80} className="text-dark-900" />
+                </div>
                 <p className="text-dark-600 font-medium">Equipa Criativa</p>
               </div>
             </div>

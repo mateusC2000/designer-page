@@ -1,5 +1,7 @@
 'use client';
 
+import { Zap } from 'lucide-react';
+
 export default function Hero() {
   return (
     <section id="hero" className="section-padding bg-white">
@@ -29,7 +31,7 @@ export default function Hero() {
             <div className="bg-gradient-to-br from-dark-100 to-dark-200 rounded-2xl aspect-square flex items-center justify-center overflow-hidden">
               <div className="text-center">
                 <div className="w-32 h-32 mx-auto mb-4 bg-dark-300 rounded-full flex items-center justify-center">
-                  <span className="text-5xl">✨</span>
+                  <Zap size={64} className="text-dark-900" />
                 </div>
                 <p className="text-dark-600 font-medium">Design Inovador</p>
               </div>
